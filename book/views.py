@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from book.models import Book
 from . forms import BookForm
@@ -8,6 +8,13 @@ def index(request):
     books = Book.objects.all()
     return render(request,'book/books.html',{
         'books':books
+    })
+
+def detail(request,pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    return render(request, 'book/details.html',{
+        'book':book
     })
 
 def add(request):
@@ -21,3 +28,29 @@ def add(request):
     return render(request,'book/add.html',{
         'form':form
     })
+
+def edit(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('book:index')
+        
+    else:
+        form = BookForm(instance=book)
+        
+    return render(request,'book/edit.html',{
+        'form':form
+    })
+
+def delete(request, pk):
+    book = Book.objects.get(pk=pk)
+    book.delete()   
+    return redirect('book:index')
+             
+    
+
+

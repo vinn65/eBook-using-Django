@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from .forms import AuthorForm
 from .models import Author
@@ -12,8 +12,8 @@ def index(request):
 
 
 def detail(request,pk):
-    author = Author.objects.get(pk=pk)
-    
+    author = get_object_or_404(Author, pk=pk)
+
     return render(request, 'author/author.html',{
         'author':author
     })
