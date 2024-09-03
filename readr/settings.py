@@ -13,7 +13,8 @@ SECRET_KEY = 'django-insecure-z&(s7lf9dmw%w4&3i6(78o2z7z7^5yxw7hi+4hxxccicn$00rc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['2gx-skillful-faraday.circumeo-apps.net']
+
 
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
